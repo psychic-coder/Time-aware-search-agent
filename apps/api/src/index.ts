@@ -27,7 +27,7 @@ async function main() {
   } catch (e) {
     fatal(
       `LLM model discovery failed: ${(e as Error).message}\n` +
-        "Check OPENROUTER_API_KEY and network access, or set LLM_MODELS in .env to skip discovery.",
+        "Check MODEL_API_KEY and network access, or set LLM_MODELS in .env to skip discovery.",
     );
   }
 

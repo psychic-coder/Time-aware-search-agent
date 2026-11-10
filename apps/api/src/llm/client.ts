@@ -397,7 +397,7 @@ export class OpenRouterLlm implements Llm {
           });
           if (c.fatal)
             throw new LlmAuthError(
-              "The LLM provider rejected the API key (check OPENROUTER_API_KEY).",
+              "The LLM provider rejected the API key (check MODEL_API_KEY).",
             );
           if (emitted) throw new LlmStreamBrokenError(`stream broke mid-answer (${c.reason})`);
           this.noteFailure(model);

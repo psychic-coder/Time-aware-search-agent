@@ -18,7 +18,8 @@ const int = (def: number, min: number, max: number) =>
   z.preprocess(emptyToUndef, z.coerce.number().int().min(min).max(max).default(def));
 
 const EnvSchema = z.object({
-  OPENROUTER_API_KEY: z.preprocess(emptyToUndef, z.string().min(10, "looks too short")),
+  MODEL_API_KEY: z.preprocess(emptyToUndef, z.string().min(10, "looks too short").optional()),
+  OPENROUTER_API_KEY: z.preprocess(emptyToUndef, z.string().min(10, "looks too short").optional()),
   TAVILY_API_KEY: z.preprocess(emptyToUndef, z.string().min(10, "looks too short")),
   LLM_MODELS: z.preprocess(emptyToUndef, z.string().optional()),
   LLM_BASE_URL: z.preprocess(
@@ -33,6 +34,14 @@ const EnvSchema = z.object({
   PORT: int(4000, 1, 65535),
   WEB_ORIGIN: z.preprocess(emptyToUndef, z.string().default("http://localhost:3000")),
   DB_PATH: z.preprocess(emptyToUndef, z.string().optional()),
+}).superRefine((env, ctx) => {
+  if (!env.MODEL_API_KEY && !env.OPENROUTER_API_KEY) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["MODEL_API_KEY"],
+      message: "missing (set MODEL_API_KEY)",
+    });
+  }
 });
 
 export type AppConfig = {
@@ -58,8 +67,10 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
     const lines = parsed.error.issues.map((i) => {
       const key = String(i.path[0] ?? "?");
       const hint =
-        key === "OPENROUTER_API_KEY"
-          ? "get one at https://openrouter.ai/keys"
+        key === "MODEL_API_KEY"
+        ? "get one at https://dev.meta.ai"
+        : key === "OPENROUTER_API_KEY"
+          ? "legacy name; use MODEL_API_KEY"
           : key === "TAVILY_API_KEY"
             ? "get one at https://app.tavily.com"
             : i.message;
@@ -75,7 +86,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
   }
   const e = parsed.data;
   return {
-    openrouterKey: e.OPENROUTER_API_KEY,
+    openrouterKey: e.MODEL_API_KEY ?? e.OPENROUTER_API_KEY!,
     tavilyKey: e.TAVILY_API_KEY,
     llmModelsOverride: e.LLM_MODELS
       ? e.LLM_MODELS.split(",")

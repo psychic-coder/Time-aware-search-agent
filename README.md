@@ -5,7 +5,7 @@ A chat agent with one tool, web search. It remembers **what you asked and when**
 ## Setup (Node 20+)
 
 ```bash
-cp .env.example .env      # fill OPENROUTER_API_KEY and TAVILY_API_KEY
+cp .env.example .env      # fill MODEL_API_KEY and TAVILY_API_KEY
 npm install
 npm run dev               # web → http://localhost:3000 · api → http://localhost:4000
 npm run seed              # optional: backdated demo history; prints a ?client=… link to open it
@@ -38,8 +38,7 @@ npm run bench -w apps/api # latency of the local stages (dates + memory)
 ```
 
 Notes:
-- Free OpenRouter models have per-minute and daily caps (higher after a small credit top-up). The client finds the free DeepSeek models at boot and falls back across them on 429/5xx/timeouts. Use `LLM_MODELS` to pin a model.
-- The same code runs on the paid DeepSeek API: set `LLM_BASE_URL=https://api.deepseek.com` and `LLM_MODELS=deepseek-chat`.
+- Meta Model API uses the OpenAI-compatible endpoint at `https://api.meta.ai/v1` with `MODEL_API_KEY` and `LLM_MODELS=muse-spark-1.3`.
 - Identity is an anonymous UUID in localStorage. All memory is scoped to it.
 - Seeded history is illustrative demo data. Its prices are what the demo "said then", not current facts.
 

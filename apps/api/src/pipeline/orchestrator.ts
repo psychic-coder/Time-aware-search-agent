@@ -376,7 +376,7 @@ export function friendlyError(e: unknown): { message: string; retryable: boolean
   if (e instanceof LlmAuthError)
     return {
       message:
-        "The AI service rejected this server's API key. The operator needs to fix OPENROUTER_API_KEY.",
+        "The AI service rejected this server's API key. The operator needs to fix MODEL_API_KEY.",
       retryable: false,
     };
   if (e instanceof LlmUnavailableError) {
