@@ -1,0 +1,7 @@
+node_modules
+.next
+dist
+apps/api/data
+apps/api/eval/last-run.json
+package-lock.json
+*.md

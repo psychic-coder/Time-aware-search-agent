@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.local
+dist/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+apps/api/data/
+apps/api/eval/last-run.json
+*.log
+.DS_Store
+coverage/

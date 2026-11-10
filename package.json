@@ -1,0 +1,31 @@
+{
+  "name": "time-aware-search-agent",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w apps/api\" \"npm run dev -w apps/web\"",
+    "build": "npm run build -w apps/api && npm run build -w apps/web",
+    "test": "npm test -w apps/api && npm test -w apps/web",
+    "typecheck": "npm run typecheck -w apps/api && npm run typecheck -w apps/web",
+    "seed": "npm run seed -w apps/api",
+    "eval": "npm run eval -w apps/api --",
+    "lint": "eslint apps/api/src apps/api/test apps/api/scripts apps/web/app apps/web/components apps/web/lib",
+    "format": "prettier --write .",
+    "dev:mock": "concurrently -n api,web -c blue,green \"npm run dev:mock -w apps/api\" \"npm run dev -w apps/web\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
+  }
+}

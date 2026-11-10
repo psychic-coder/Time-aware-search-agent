@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Markdown answer styling (no typography plugin: keep deps lean) */
+.md {
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.md > * + * {
+  margin-top: 0.7em;
+}
+.md h1,
+.md h2,
+.md h3 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.1em;
+}
+.md h1 {
+  font-size: 1.2rem;
+}
+.md h2 {
+  font-size: 1.1rem;
+}
+.md h3 {
+  font-size: 1rem;
+}
+.md ul {
+  list-style: disc;
+  padding-left: 1.3em;
+}
+.md ol {
+  list-style: decimal;
+  padding-left: 1.3em;
+}
+.md li + li {
+  margin-top: 0.25em;
+}
+.md a {
+  color: rgb(2 132 199);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.md code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+  padding: 0.1em 0.35em;
+  border-radius: 0.3em;
+  background: rgb(244 244 245);
+}
+.md pre {
+  overflow-x: auto;
+  padding: 0.8em 1em;
+  border-radius: 0.6em;
+  background: rgb(244 244 245);
+}
+.md pre code {
+  padding: 0;
+  background: transparent;
+}
+.md blockquote {
+  border-left: 3px solid rgb(212 212 216);
+  padding-left: 0.9em;
+  color: rgb(82 82 91);
+}
+.md table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  max-width: 100%;
+}
+.md th,
+.md td {
+  border: 1px solid rgb(228 228 231);
+  padding: 0.4em 0.7em;
+  text-align: left;
+  vertical-align: top;
+}
+.md th {
+  background: rgb(250 250 250);
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .md a {
+    color: rgb(56 189 248);
+  }
+  .md code,
+  .md pre {
+    background: rgb(39 39 42);
+  }
+  .md blockquote {
+    border-color: rgb(63 63 70);
+    color: rgb(161 161 170);
+  }
+  .md th,
+  .md td {
+    border-color: rgb(63 63 70);
+  }
+  .md th {
+    background: rgb(24 24 27);
+  }
+}
+
+.cite {
+  font-size: 0.68em;
+  vertical-align: super;
+  line-height: 0;
+  margin: 0 0.05em;
+  padding: 0 0.3em;
+  border-radius: 0.35em;
+  text-decoration: none !important;
+  background: rgb(224 242 254);
+  color: rgb(3 105 161) !important;
+  font-weight: 600;
+}
+@media (prefers-color-scheme: dark) {
+  .cite {
+    background: rgb(12 74 110);
+    color: rgb(186 230 253) !important;
+  }
+}
+
+@keyframes flash {
+  0% {
+    background-color: rgb(186 230 253 / 0.8);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+.flash {
+  animation: flash 1.6s ease-out;
+}
+
+.caret::after {
+  content: "▍";
+  margin-left: 1px;
+  animation: blink 1s steps(2) infinite;
+  color: rgb(113 113 122);
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
